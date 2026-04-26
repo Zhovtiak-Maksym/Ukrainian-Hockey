@@ -1,0 +1,12 @@
+#!/bin/bash
+
+COMMIT_MSG_FILE=$1
+COMMIT_MSG=$(cat "$COMMIT_MSG_FILE")
+
+REGEX="^\[(Backend|Frontend|Database|CI\/CD|Console|Infrastructure)\].*"
+
+if [[ ! $COMMIT_MSG =~ $REGEX ]]; then
+  echo "Повідомлення коміту має починатися з одного з обов'язкових тегів!"
+  echo "Теги: [Backend], [Frontend], [Database], [CI/CD], [Console], [Infrastructure]"
+  exit 1
+fi
