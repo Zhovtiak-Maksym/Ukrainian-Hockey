@@ -22,9 +22,11 @@ jobs:
           cache: maven
 
       - name: Надання прав для Maven
+        working-directory: ./backend
         run: chmod +x mvnw
 
       - name: Збірка та тестування проєкту
+        working-directory: ./backend
         env:
           DB_URL: ${{ secrets.DB_URL }}
           DB_USERNAME: ${{ secrets.DB_USERNAME }}
