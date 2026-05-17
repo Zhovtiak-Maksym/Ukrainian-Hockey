@@ -36,6 +36,7 @@ public class MatchService {
     }
 
     public Match updateMatchStatus(Long matchId, String newStatus) {
+
         Match match = matchRepository.findById(matchId)
                 .orElseThrow(() -> new IllegalArgumentException("Матч не знайдено"));
 
@@ -44,7 +45,19 @@ public class MatchService {
         return matchRepository.save(match);
     }
 
+    public Match updateMatchScore(Long matchId, int homeScore, int awayScore) {
+
+        Match match = matchRepository.findById(matchId)
+                .orElseThrow(() -> new IllegalArgumentException("Матч не знайдено"));
+
+        match.setHomeScore(homeScore);
+        match.setAwayScore(awayScore);
+
+        return matchRepository.save(match);
+    }
+
     public Match finishMatch(Long matchId, boolean isOvertime) {
+
         Match match = matchRepository.findById(matchId)
                 .orElseThrow(() -> new IllegalArgumentException("Матч не знайдено"));
 
@@ -62,6 +75,11 @@ public class MatchService {
             throw new IllegalArgumentException("Не можливо мати рівний рахунок");
         }
 
+        homeTeam.setGoalsScored(homeTeam.getGoalsScored() + homeScore);
+        homeTeam.setGoalsConceded(homeTeam.getGoalsConceded() + awayScore);
+        awayTeam.setGoalsScored(awayTeam.getGoalsScored() + awayScore);
+        awayTeam.setGoalsConceded(awayTeam.getGoalsConceded() + homeScore);
+
         Team winner = (homeScore > awayScore) ? homeTeam : awayTeam;
         Team loser = (homeScore > awayScore) ? awayTeam : homeTeam;
 
@@ -74,9 +92,7 @@ public class MatchService {
         winner.setGamesPlayed(winnerNewGames);
         loser.setGamesPlayed(loserNewGames);
 
-
         if (isOvertime) {
-
             int currentWinnerOtWins = winner.getOtWins();
             winner.setOtWins(currentWinnerOtWins + 1);
 
@@ -88,9 +104,7 @@ public class MatchService {
 
             int currentLoserPoints = loser.getPoints();
             loser.setPoints(currentLoserPoints + 1);
-
         } else {
-
             int currentWinnerWins = winner.getWins();
             winner.setWins(currentWinnerWins + 1);
 
