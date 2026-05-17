@@ -28,6 +28,15 @@ public class MatchController {
         return ResponseEntity.ok(matchService.createMatch(match));
     }
 
+    @PostMapping("/{id}/status")
+    public ResponseEntity<Match> updateMatchStatus(@PathVariable Long id, @RequestParam String status) {
+        return ResponseEntity.ok(matchService.updateMatchStatus(id, status));
+    }
+
+    @PostMapping("/{id}/score")
+    public ResponseEntity<Match> updateMatchScore(@PathVariable Long id, @RequestParam int homeScore, @RequestParam int awayScore) {
+        return ResponseEntity.ok(matchService.updateMatchScore(id, homeScore, awayScore));
+    }
 
     @PostMapping("/{id}/finish")
     public ResponseEntity<Void> finishMatch(@PathVariable Long id, @RequestParam boolean isOvertime) {
