@@ -8,6 +8,5 @@ import java.util.List;
 
 @Repository
 public interface MatchRepository extends JpaRepository<Match, Long> {
-
     List<Match> findByStatus(String status);
 }

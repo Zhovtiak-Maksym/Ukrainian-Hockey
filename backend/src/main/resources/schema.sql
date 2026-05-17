@@ -30,6 +30,8 @@ CREATE TABLE matches (
                          away_team_id INT REFERENCES teams(id) ON DELETE CASCADE,
                          home_score INT DEFAULT 0,
                          away_score INT DEFAULT 0,
+                         home_penalty_minutes INT DEFAULT 0,
+                         away_penalty_minutes INT DEFAULT 0,
                          match_date TIMESTAMP NOT NULL,
                          status VARCHAR(15) DEFAULT 'PLANNED' CHECK (status IN ('PLANNED', 'IN_PROGRESS', 'FINISHED'))
 );
@@ -40,5 +42,6 @@ CREATE TABLE match_events (
                               team_id INT REFERENCES teams(id) ON DELETE CASCADE,
                               player_name VARCHAR(100) NOT NULL,
                               event_minute INT NOT NULL,
+                              penalty_duration INT,
                               event_type VARCHAR(15) DEFAULT 'GOAL' CHECK (event_type IN ('GOAL', 'PENALTY'))
 );
