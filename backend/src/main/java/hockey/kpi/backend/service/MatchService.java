@@ -1,7 +1,6 @@
 package hockey.kpi.backend.service;
 
 import hockey.kpi.backend.model.Match;
-import hockey.kpi.backend.model.MatchEvent;
 import hockey.kpi.backend.model.Team;
 import hockey.kpi.backend.repository.MatchEventRepository;
 import hockey.kpi.backend.repository.MatchRepository;
@@ -13,7 +12,7 @@ import java.util.Optional;
 
 @Service
 public class MatchService {
-    
+
     private final MatchRepository matchRepository;
     private final TeamRepository teamRepository;
     private final MatchEventRepository matchEventRepository;
@@ -23,11 +22,11 @@ public class MatchService {
         this.teamRepository = teamRepository;
         this.matchEventRepository = matchEventRepository;
     }
-    
+
     public Match createMatch(Match match) {
         return matchRepository.save(match);
     }
-    
+
     public List<Match> getAllMatches() {
         return matchRepository.findAll();
     }
@@ -35,17 +34,17 @@ public class MatchService {
     public Optional<Match> getMatchById(Long id) {
         return matchRepository.findById(id);
     }
-    
+
     public Match updateMatchStatus(Long matchId, String newStatus) {
         Match match = matchRepository.findById(matchId)
                 .orElseThrow(() -> new IllegalArgumentException("Матч не знайдено"));
 
         match.setStatus(newStatus);
-        
+
         return matchRepository.save(match);
     }
 
-    public Match finishMatch(Long matchId) {
+    public Match finishMatch(Long matchId, boolean isOvertime) {
         Match match = matchRepository.findById(matchId)
                 .orElseThrow(() -> new IllegalArgumentException("Матч не знайдено"));
 
@@ -62,9 +61,6 @@ public class MatchService {
         if (homeScore == awayScore) {
             throw new IllegalArgumentException("Не можливо мати рівний рахунок");
         }
-
-        List<MatchEvent> events = matchEventRepository.findByMatchId(matchId);
-        boolean isOvertime = events.stream().anyMatch(e -> e.getEventMinute() > 60);
 
         Team winner = (homeScore > awayScore) ? homeTeam : awayTeam;
         Team loser = (homeScore > awayScore) ? awayTeam : homeTeam;
