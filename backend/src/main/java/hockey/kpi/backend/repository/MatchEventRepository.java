@@ -8,7 +8,6 @@ import java.util.List;
 
 @Repository
 public interface MatchEventRepository extends JpaRepository<MatchEvent, Long> {
-    
     List<MatchEvent> findByMatchId(Long matchId);
 }
 

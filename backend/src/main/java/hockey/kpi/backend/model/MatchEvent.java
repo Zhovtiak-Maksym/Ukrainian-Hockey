@@ -24,6 +24,9 @@ public class MatchEvent {
     @Column(name = "event_minute", nullable = false)
     private Integer eventMinute;
 
+    @Column(name = "penalty_duration")
+    private Integer penaltyDuration;
+
     @Column(name = "event_type", length = 15)
     private String eventType = "GOAL";
 
@@ -68,6 +71,14 @@ public class MatchEvent {
 
     public void setEventMinute(Integer eventMinute) {
         this.eventMinute = eventMinute;
+    }
+
+    public Integer getPenaltyDuration() {
+        return penaltyDuration;
+    }
+
+    public void setPenaltyDuration(Integer penaltyDuration) {
+        this.penaltyDuration = penaltyDuration;
     }
 
     public String getEventType() {

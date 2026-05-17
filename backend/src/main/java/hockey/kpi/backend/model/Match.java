@@ -25,6 +25,12 @@ public class Match {
     @Column(name = "away_score")
     private Integer awayScore = 0;
 
+    @Column(name = "home_penalty_minutes")
+    private Integer homePenaltyMinutes = 0;
+
+    @Column(name = "away_penalty_minutes")
+    private Integer awayPenaltyMinutes = 0;
+
     @Column(name = "match_date", nullable = false)
     private LocalDateTime matchDate;
 
@@ -74,6 +80,22 @@ public class Match {
         this.awayScore = awayScore;
     }
 
+    public Integer getHomePenaltyMinutes() {
+        return homePenaltyMinutes;
+    }
+
+    public void setHomePenaltyMinutes(Integer homePenaltyMinutes) {
+        this.homePenaltyMinutes = homePenaltyMinutes;
+    }
+
+    public Integer getAwayPenaltyMinutes() {
+        return awayPenaltyMinutes;
+    }
+
+    public void setAwayPenaltyMinutes(Integer awayPenaltyMinutes) {
+        this.awayPenaltyMinutes = awayPenaltyMinutes;
+    }
+
     public LocalDateTime getMatchDate() {
         return matchDate;
     }
@@ -90,6 +112,8 @@ public class Match {
         this.status = status;
     }
 }
+
+
 
 
 
