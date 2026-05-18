@@ -71,6 +71,11 @@
 			<name>GitHub Packages</name>
 			<url>https://maven.pkg.github.com/Zhovtiak-Maksym/Ukrainian-Hockey</url>
 		</repository>
+		<snapshotRepository>
+			<id>github</id>
+			<name>GitHub Packages</name>
+			<url>https://maven.pkg.github.com/Zhovtiak-Maksym/Ukrainian-Hockey</url>
+		</snapshotRepository>
 	</distributionManagement>
 
 </project>
